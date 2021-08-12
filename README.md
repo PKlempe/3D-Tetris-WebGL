@@ -1,5 +1,18 @@
-# Web-3D-Tetris
+# Web 3D Tetris
 This little game has been developed for the course "GFX - Foundations of Computer Graphics" at the University of Vienna. The goal of this assignment was to create a simple 3D game so that students can get familiar with the basic concepts of Computer Graphics (*Vector & Matrix Calculation, 3D Modelling, Shading, etc.*) and WebGL.
+
+**_For Controls, please see below._**
+
+## Screenshots
+### Perspective Viewing
+| ![persp1](https://user-images.githubusercontent.com/49726903/129208972-fb42ec57-4f7a-4fc3-892d-99b17e6394df.png) | ![persp2](https://user-images.githubusercontent.com/49726903/129209027-a5962992-2015-4ac3-b16c-e6d7dcf3d48a.png) |
+|---------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------:|
+
+### Orthogonal Viewing
+| ![ortho1](https://user-images.githubusercontent.com/49726903/129208766-9456f488-fac2-40c2-80f4-19639a8a454b.png) | ![ortho2](https://user-images.githubusercontent.com/49726903/129208923-1d162941-5c73-4d96-8878-808045afafc5.png) |
+|---------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------:|
+<br/>
+
 
 ## Controls ⌨️
 
@@ -58,7 +71,3 @@ This little game has been developed for the course "GFX - Foundations of Compute
 | <kbd>G</kbd>                  | Toggle 3D grid                         	|
 | <kbd>F</kbd>                  | Switch between Gouraud & Phong Shading  |
 | <kbd>V</kbd>                  | Switch between Orthographic & Perspective Viewing  |
-<br/>
-
-
-## Screenshots
