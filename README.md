@@ -6,11 +6,11 @@ This little game has been developed for the course "GFX - Foundations of Compute
 **_For Controls, please see below._**
 
 ## Screenshots
-### Perspective Viewing
+### Perspective View
 | ![persp1](https://user-images.githubusercontent.com/49726903/129208972-fb42ec57-4f7a-4fc3-892d-99b17e6394df.png) | ![persp2](https://user-images.githubusercontent.com/49726903/129209027-a5962992-2015-4ac3-b16c-e6d7dcf3d48a.png) |
 |---------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------:|
 
-### Orthogonal Viewing
+### Orthogonal View
 | ![ortho1](https://user-images.githubusercontent.com/49726903/129208766-9456f488-fac2-40c2-80f4-19639a8a454b.png) | ![ortho2](https://user-images.githubusercontent.com/49726903/129208923-1d162941-5c73-4d96-8878-808045afafc5.png) |
 |---------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------:|
 <br/>
@@ -32,7 +32,7 @@ This little game has been developed for the course "GFX - Foundations of Compute
 |   <kbd>O</kbd>   | Rotate the camera cw on the Z-Axis around the center of the grid |
 
 #### Zooming
-> Only works with Perspective Viewing!
+> Only works with Perspective View!
 
 | Key              | Description                               |
 |------------------|-------------------------------------------|
@@ -74,4 +74,4 @@ This little game has been developed for the course "GFX - Foundations of Compute
 | <kbd>P</kbd>                  | Pause / Unpause the game                |
 | <kbd>G</kbd>                  | Toggle 3D grid                         	|
 | <kbd>F</kbd>                  | Switch between Gouraud & Phong Shading  |
-| <kbd>V</kbd>                  | Switch between Orthographic & Perspective Viewing  |
+| <kbd>V</kbd>                  | Switch between Orthographic & Perspective View  |
