@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="eng">
+    <!-- Local -> Global -> View -> Projection -->
+    <!-- M * Transf => local Transformation -->
+    <!-- Transf * M => global Transformation -->
+
+    <!-- ################# -->
+    <!-- #### Shapes ##### -->
+    <!-- ################# -->
+    <script type="text/javascript" src="objects/boundingBox.js"></script>
+    <script type="text/javascript" src="objects/grid3D.js"></script>
+
+    <script type="text/javascript" src="objects/tetracube.js"></script>
+    <script type="text/javascript" src="objects/cube.js"></script>
+    <script type="text/javascript" src="objects/shapeI.js"></script>
+    <script type="text/javascript" src="objects/shapeL.js"></script>
+    <script type="text/javascript" src="objects/shapeN.js"></script>
+    <script type="text/javascript" src="objects/shapeO.js"></script>
+    <script type="text/javascript" src="objects/shapeT.js"></script>
+    <script type="text/javascript" src="objects/shapeTowerLeft.js"></script>
+    <script type="text/javascript" src="objects/shapeTowerRight.js"></script>
+    <script type="text/javascript" src="objects/shapeTripod.js"></script>
+
+    <!-- Utilities -->
+    <script type="text/javascript" src="utils/gl-matrix.js"></script>
+    <script type="text/javascript" src="utils/initShaders.js"></script>
+
+    <!-- Application -->
+    <script type="text/javascript" src="gameLogic.js"></script>
+    <script type="text/javascript" src="userInput.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+
+
+    <!-- ################# -->
+    <!-- #### Website #### -->
+    <!-- ################# -->
+    <body>
+        <h2>GFX - Lab 1c</h2>
+        <div class="slider">
+            <label for="materialKa">Ambient</label>
+            <input type="range" min="0" max="100" value="10" class="slider" id="materialKa">
+
+            <label for="materialKd">Diffuse</label>
+            <input type="range" min="0" max="100" value="100" class="slider" id="materialKd">
+
+            <label for="materialKs">Specular</label>
+            <input type="range" min="0" max="100" value="100" class="slider" id="materialKs">
+        </div>
+    </body>
+
+
+    <!-- ################# -->
+    <!-- #### Shaders #### -->
+    <!-- ################# -->
+
+    <!-- GLSL Source Code -->
+    <script id="vertexShaderNoShading" type="x-shader/x-vertex">
+        attribute vec4 vPosition;
+        attribute vec4 vColor;
+
+        uniform mat4 modelViewMatrix;
+        uniform mat4 projectionMatrix;
+
+        varying lowp vec4 fColor;
+
+        void main() {
+            gl_Position = projectionMatrix * modelViewMatrix * vPosition;    // Final position in the clip space.
+            fColor = vColor;
+        }
+    </script>
+
+    <!-- GLSL Source Code -->
+    <script id="fragmentShaderNoShading" type="x-shader/x-fragment">
+        varying lowp vec4 fColor;
+
+        void main() {
+            gl_FragColor = fColor;
+        }
+    </script>
+
+
+    <!-- GLSL Source Code -->
+    <script id="vertexShaderGouraud" type="x-shader/x-vertex">
+        attribute vec4 vPosition;
+        attribute vec4 vColor;
+        attribute vec3 vNormal;
+
+        uniform mat4 modelViewMatrix;
+        uniform mat4 projectionMatrix;
+        uniform mat3 normalMatrix;
+
+        uniform vec4 ambientProduct;
+        uniform vec4 diffuseProduct;
+        uniform vec4 specularProduct;
+        uniform float shininess;
+
+        varying mediump vec4 fColor;
+
+        void main() {
+            vec4 vertexPosition = modelViewMatrix * vPosition;
+            gl_Position = projectionMatrix * vertexPosition;
+
+            // ### Calculations for Shading & Lighting ###
+            vec3 L = normalize(vec3(1, 1, 1));                  // Light Vector
+            vec3 E = normalize(-vertexPosition.xyz);            // Eye Vector
+            vec3 N = normalize(normalMatrix * vNormal);         // Normal Vector
+            vec3 R = reflect(-L, N);                            // Reflection Vector
+
+            // ### Ambient Light ###
+            vec4 ambient = ambientProduct * vColor;
+            fColor = ambient;
+
+            // ### Diffuse Light ###
+            float Kd = max(dot(L, N), 0.0);
+            vec4  diffuse = Kd * diffuseProduct * vColor;
+            fColor += diffuse;
+
+            // ### Specular Light ###
+            vec4  specular;
+
+            // Check if light is on the right side of the surface
+            if(dot(L, N) <= 0.0) {
+                specular = vec4(0.0, 0.0, 0.0, 1.0);
+            }
+            else {
+                float Ks = pow(max(dot(E, R), 0.0), shininess);
+                specular = Ks * specularProduct;
+            }
+
+            fColor += specular;
+            fColor.a = 1.0;     // Set Alpha value to 1
+        }
+    </script>
+
+    <!-- GLSL Source Code -->
+    <script id="fragmentShaderGouraud" type="x-shader/x-fragment">
+        varying mediump vec4 fColor;
+
+        void main() {
+            gl_FragColor = fColor;
+        }
+    </script>
+
+
+    <!-- GLSL Source Code -->
+    <script id="vertexShaderPhong" type="x-shader/x-vertex">
+        attribute vec4 vPosition;
+        attribute vec4 vColor;
+        attribute vec3 vNormal;
+
+        uniform mat4 modelViewMatrix;
+        uniform mat4 projectionMatrix;
+        uniform mat3 normalMatrix;
+
+        varying mediump vec3 L;
+        varying mediump vec3 E;
+        varying mediump vec3 N;
+
+        varying mediump vec4 objectColor;
+
+        void main() {
+            vec4 vertexPosition = modelViewMatrix * vPosition;
+            gl_Position = projectionMatrix * vertexPosition;
+
+            // ### Calculations for Shading & Lighting ###
+            L = vec3(1, 1, 1);               // Light Vector
+            E = -vertexPosition.xyz;            // Eye Vector
+            N = normalMatrix * vNormal;         // Normal Vector
+
+            objectColor = vColor;
+        }
+    </script>
+
+    <!-- GLSL Source Code -->
+    <script id="fragmentShaderPhong" type="x-shader/x-fragment">
+        precision mediump float;
+
+        uniform vec4 ambientProduct;
+        uniform vec4 diffuseProduct;
+        uniform vec4 specularProduct;
+        uniform float shininess;
+
+        varying vec3 L;
+        varying vec3 E;
+        varying vec3 N;
+
+        varying vec4 objectColor;
+
+        void main() {
+            // Normalize values after interpolating
+            vec3 normalL = normalize(L);
+            vec3 normalE = normalize(E);
+            vec3 normalN = normalize(N);
+
+            vec3 R = reflect(-normalL, normalN);    // Relection Vector
+
+            // ### Ambient Light ###
+            vec4 ambient = ambientProduct * objectColor;
+            vec4 fColor = ambient;
+
+            // ### Diffuse Light ###
+            float Kd = max(dot(normalL, normalN), 0.0);
+            vec4  diffuse = Kd * diffuseProduct * objectColor;
+            fColor += diffuse;
+
+            // ### Specular Light ###
+            vec4 specular;
+
+            // Check if light is on the right side of the surface
+            if(dot(normalL, normalN) <= 0.0) {
+                specular = vec4(0.0, 0.0, 0.0, 1.0);
+            }
+            else {
+                float Ks = pow(max(dot(normalE, R), 0.0), shininess);
+                specular = Ks * specularProduct;
+            }
+
+            fColor += specular;
+            fColor.a = 1.0;     // Set Alpha value to 1
+
+            gl_FragColor = fColor;
+        }
+    </script>
+</html>
