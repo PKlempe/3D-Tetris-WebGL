@@ -17,6 +17,8 @@ This little game has been developed for the course "GFX - Foundations of Compute
 
 
 ## Controls ⌨️
+* `cw` - clockwise
+* `ccw` - counter clockwise
 
 ### Camera 🎥
 #### Movement
