@@ -357,6 +357,5 @@ class Cube {
             -0.3416,
             0.3416
         ];
-        //this.textures = [];   // TODO: Add texture support
     }
 }
