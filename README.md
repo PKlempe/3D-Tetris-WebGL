@@ -1,7 +1,6 @@
 # 3D Tetris WebGL
 [-> Click here](https://github.com/PKlempe/Web-3D-Tetris/archive/refs/heads/main.zip) to get [möllered](https://www.urbandictionary.com/define.php?term=m%C3%B6llered). 🤡
 
-<br/>
 This little game has been developed for the course "GFX - Foundations of Computer Graphics" at the University of Vienna. The goal of this assignment was to create a simple 3D game so that students can get familiar with the basic concepts of Computer Graphics (*Vector & Matrix Calculation, 3D Modelling, Shading, etc.*) and WebGL.
 
 **_For Controls, please see below._** ⬇️
