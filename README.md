@@ -21,6 +21,16 @@ This little game has been developed for the course "GFX - Foundations of Compute
 * `cw` - clockwise
 * `ccw` - counter clockwise
 
+### Game Settings
+| Key                           | Description                           	|
+|-------------------------------|---------------------------------------	|
+| <kbd>P</kbd>                  | Pause / Unpause the game                |
+| <kbd>G</kbd>                  | Toggle 3D grid                         	|
+| <kbd>F</kbd>                  | Switch between Gouraud & Phong Shading  |
+| <kbd>V</kbd>                  | Switch between Orthographic & Perspective View  |
+<br/>
+
+
 ### Camera 🎥
 #### Movement
 | Key              | Description                               |
@@ -69,10 +79,3 @@ This little game has been developed for the course "GFX - Foundations of Compute
 | <kbd>⇧</kbd> + <kbd>Y</kbd>  	| Rotate the cube cw around the Y-Axis  	|
 | <kbd>Z</kbd>                  | Rotate the cube ccw around the Z-Axis 	|
 | <kbd>⇧</kbd> + <kbd>Z</kbd> 	| Rotate the cube cw around the Z-Axis  	|
-#### Other
-| Key                           | Description                           	|
-|-------------------------------|---------------------------------------	|
-| <kbd>P</kbd>                  | Pause / Unpause the game                |
-| <kbd>G</kbd>                  | Toggle 3D grid                         	|
-| <kbd>F</kbd>                  | Switch between Gouraud & Phong Shading  |
-| <kbd>V</kbd>                  | Switch between Orthographic & Perspective View  |
